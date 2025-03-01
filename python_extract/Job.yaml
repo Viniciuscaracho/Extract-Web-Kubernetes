@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: python-extract
+  labels:
+    app: python-extract
+spec:
+  template:
+    metadata:
+      name: python-extract
+      labels:
+        app: python-extract
+    spec:
+      containers:
+        - name: python-extract
+          image: vinicaracho/etl_deputies:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          env:
+            - name: DATABASE_HOST
+              value: database
+            - name: DATABASE_PORT
+              value: "5432"
+            - name: DATABASE_USER
+              value: postgres
+            - name: DATABASE_PASSWORD
+              value: postgres
+            - name: DATABASE_NAME
+              value: deputy-database
+      restartPolicy: Never

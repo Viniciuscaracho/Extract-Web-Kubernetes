@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ruby-web
+  labels:
+    app: ruby-web
+spec:
+  containers:
+    - name: ruby-web
+      image: vinicaracho/ruby_web_image:latest
+      imagePullPolicy: IfNotPresent
+      ports:
+        - name: ruby-web
+          containerPort: 3000
+          protocol: TCP
+      env:
+        - name: DATABASE_HOST
+          value: database-service
+        - name: DATABASE_PORT
+          value: "5432"
+        - name: DATABASE_USER
+          value: postgres
+        - name: DATABASE_PASSWORD
+          value: postgres
+        - name: DATABASE_NAME
+          value: deputy-database
+  restartPolicy: Always
+  
